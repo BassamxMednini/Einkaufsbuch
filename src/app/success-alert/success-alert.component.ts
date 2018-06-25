@@ -7,5 +7,11 @@ import { Component } from "@angular/core";
 })
 
 export class SuccessAlertComponent {
+  userName = '';
+
+  userNameEmpty() {
+    this.userName = '';
+  }
 
 }
+
