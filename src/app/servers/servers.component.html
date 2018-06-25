@@ -11,5 +11,4 @@
 <!-- <p>{{ serverCreationStatus }}</p> -->
 <p *ngIf="serverCreated">Server was created, server Name is {{ serverName }}</p>
 <p *ngIf="!serverCreated">No Server was created!</p>
-<app-server></app-server>
-<app-server></app-server>
+<app-server *ngFor="let server of  servers"></app-server>
