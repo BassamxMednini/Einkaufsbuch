@@ -1,1 +1,5 @@
-<p class="warning">Warning Alert!</p>
+<button class="btn btn-primary" (click)="showElement()">Display Details</button>
+<p *ngIf="showPassword">Secret Password = tuna</p>
+<p *ngFor="let something of showTime" [ngStyle]="{backgroundColor: getColor()}"
+[ngClass]="{online: 'online'}">{{ showTime }}</p>
+<br>
