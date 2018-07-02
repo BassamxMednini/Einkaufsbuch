@@ -8,9 +8,17 @@ import { Component } from "@angular/core";
 
 export class SuccessAlertComponent {
   userName = '';
+  showSecret = false;
+  log = [];
 
   userNameEmpty() {
     this.userName = '';
+  }
+  
+  onToggleDetails() {
+    this.showSecret = !this.showSecret;
+    // this.log.push(this.log.length + 1);
+    this.log.push(new Date());
   }
 
 }
