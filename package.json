@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-project",
+  "version": "1.0.0",
+  "description": "Einfache NodeJS-App",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Bassam Mednini",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
