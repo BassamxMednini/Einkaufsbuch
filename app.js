@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 mongoose.connect('mongodb://localhost/nodekb')
 let db = mongoose.connection;
@@ -22,6 +23,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/bootstrap/javascript', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/popper', express.static(__dirname + '/node_modules/popper.js/dist'));
+
 app.set('view engine', 'pug');
 
 app.get('/', function (req, res) {
@@ -34,6 +42,24 @@ app.get('/', function (req, res) {
                 articles: articles
             }); 
         }
+    });
+});
+
+
+app.get('/article/:id', function(req, res) {
+    Article.findById(req.params.id, function(err, article){
+        res.render('article', {
+            article: article
+        });
+    });
+});
+
+app.get('/article/edit/:id', function(req, res) {
+    Article.findById(req.params.id, function(err, article){
+        res.render('edit_article', {
+            title: 'Edit Article',
+            article: article
+        });
     });
 });
 
@@ -50,6 +76,25 @@ app.post('/articles/add', function(req, res) {
     article.body = req.body.body;
 
     article.save(function(err) {
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            res.redirect('/');
+        }
+    })
+})
+
+// Update 
+app.post('/articles/edit/:id', function(req, res) {
+    let article = {};
+    article.title = req.body.title;
+    article.author = req.body.author;
+    article.body = req.body.body;
+
+    let query = {_id:req.params.id}
+
+    Article.update(query, article, function(err) {
         if (err) {
             console.log(err);
             return;
