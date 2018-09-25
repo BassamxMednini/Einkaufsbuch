@@ -1,38 +1,61 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
+mongoose.connect('mongodb://localhost/nodekb')
+let db = mongoose.connection;
+
+db.once('open', function() {
+    console.log('Connected to MongoDB');
+});
+
+db.on('error', function(err) {
+    console.log(err);
+});
+
+let Article = require('./models/article');
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
+
 app.set('view engine', 'pug');
 
-
 app.get('/', function (req, res) {
-    let articles = [
-        {
-            id: 1,
-            title: 'Artikel 1',
-            author: 'Bassam Mednini',
-            body: 'Das ist Artikel 1'
-        },
-        {
-            id: 2,
-            title: 'Artikel 2',
-            author: 'Bassam Mednini',
-            body: 'Das ist Artikel 2'
-        },
-        {
-            id: 3,
-            title: 'Artikel 3',
-            author: 'Bassam Mednini',
-            body: 'Das ist Artikel 3'
+    Article.find({}, function(err, articles){
+        if(err){
+            console.log(err);
+        } else {
+            res.render('index', {
+                title: 'Mednini',
+                articles: articles
+            }); 
         }
-    ]
-    res.render('index', {
-        title: 'Mednini',
-        articles: articles
-    })
-})
+    });
+});
 
 app.get('/articles/add', function(req, res) {
     res.render('add_article', {
         title: 'Add Article'
+    })
+})
+
+app.post('/articles/add', function(req, res) {
+    let article = new Article();
+    article.title = req.body.title;
+    article.author = req.body.author;
+    article.body = req.body.body;
+
+    article.save(function(err) {
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            res.redirect('/');
+        }
     })
 })
 
