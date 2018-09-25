@@ -2,9 +2,30 @@ doctype html
 html
   head
     title Bassam
+    link(rel='stylesheet', href='/bootstrap/bootstrap.css')
   body
-    block content
-    br
-    hr
-    footer
+    nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+      a.navbar-brand(href='/') Navbar
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExampleDefault', aria-controls='navbarsExampleDefault', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarsExampleDefault.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a.nav-link(href='/')
+              | Home 
+          li.nav-item
+            a.nav-link(href='/articles/add') Add Article
+          li.nav-item
+            a.nav-link.disabled(href='#') Disabled
+    .container
+      block content
+      br
+      hr
+      footer
         p Copyright &copy;
+    script(src='/jquery/jquery.js')
+    script(src='/popper/popper.js')
+    script(src='/bootstrap/javascript/bootstrap.js')
+
+
+    // 8:25 https://www.youtube.com/watch?v=aZ16pkrMkZE Ajax Request, Delete
