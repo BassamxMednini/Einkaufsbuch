@@ -6,5 +6,5 @@ block content
     p= article.body
     hr  
     .btn-toolbar(role='toolbar')
-        a.button.btn.btn-warning(href='/article/edit/' + article._id) Edit
-        a.button.btn.btn-danger(href='#', data-id=article._id) Delete
+        a.btn.btn-warning(href='/article/edit/' + article._id) Edit
+        a.btn.btn-danger.delete-article(href='#', data-id=article._id) Delete
