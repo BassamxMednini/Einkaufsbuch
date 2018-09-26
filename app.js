@@ -26,9 +26,11 @@ app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/styles', express.static(__dirname + '/public/css'));
 app.use('/bootstrap/javascript', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/popper', express.static(__dirname + '/node_modules/popper.js/dist'));
+app.use('/js', express.static(__dirname + '/public/js'));
 
 app.set('view engine', 'pug');
 
@@ -103,5 +105,18 @@ app.post('/articles/edit/:id', function(req, res) {
         }
     })
 })
+
+// Delete
+app.delete('/article/:id', function(req, res) {
+    let query = {_id:req.params.id}
+
+    Article.remove(query, function(err) {
+        if (err) {
+            console.log(err);
+        }
+        res.send('Success');
+    });
+});
+
 
 var server = app.listen(3000, function () {});
