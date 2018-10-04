@@ -1,3 +1,4 @@
+// Schema für mongoDB - notwendig !!
 let mongoose = require('mongoose');
 
 let articleSchema = mongoose.Schema({
