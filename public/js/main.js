@@ -1,3 +1,5 @@
+// Um Artikel einer DB zu löschen, muss eine Ajax-Request gemacht werden
+// Mit Hilfe von jQuery wird die Request durchgeführt
 $(document).ready(function() {
     $('.delete-article').on('click', function(e){
         $target = $(e.target);
@@ -6,7 +8,7 @@ $(document).ready(function() {
             type: 'DELETE',
             url: '/article/' + id,
             success: function(response) {
-                alert('Deleting Article');
+                alert('Artikel gelöscht');
                 window.location.href='/';
             },
             error: function(err) {
