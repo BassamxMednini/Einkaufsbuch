@@ -1,15 +1,17 @@
 extends layout
 
 block content
-  h1 #{title}
+  h2.mt-2.text-center #{title}
+  hr
   form(method='POST', action='/articles/add')
     #form-group
-      label Title:
+      label Titel:
       input.form-control(name='title', type='text')
     #form-group
-      label Author:
+      label Autor:
       input.form-control(name='author', type='text')
     #form-group
-      label Body:
+      label Beschreibung:
       textarea.form-control(name='body')
-    input.btn.btn-primary(type='submit', value='Submit')
+    br
+    input.btn.btn-primary(type='submit', value='Hinzufügen')
